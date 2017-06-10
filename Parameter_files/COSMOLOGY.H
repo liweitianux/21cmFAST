@@ -11,20 +11,21 @@
 
 
 /* COSMOLOGICAL PARAMETERS */
-#define SIGMA8 (0.815) // rms mass fluctuation on 8/hlittle Mpc scales at z=0
-#define hlittle (0.678) // little hubble h
-#define OMm  (0.308) // at z=0
+/* See Komatsu et al. 2011, ApJS, 192, 18; Table 1 */
+#define SIGMA8 (0.81) // rms mass fluctuation on 8/hlittle Mpc scales at z=0
+#define hlittle (0.71) // little hubble h
+#define OMm  (0.27) // at z=0
 #define OMl  (float) (1.0-OMm) // at z=0
-#define OMb  (float) ((0.02226/hlittle)/hlittle) // at z=0
+#define OMb  (float) (0.046) // at z=0
 #define OMn  (0.0)
 #define OMk  (0.0)
 #define OMr  (8.6e-5)
 #define OMtot (1.0)
 #define Y_He (0.245)
-#define POWER_INDEX (0.968) /* power law index for the power spectrum */
+#define POWER_INDEX (0.96) /* power law index for the power spectrum */
 #define wl   (-1.0) /* dark energy equation of state parameter (wl = -1 for vacuum ) */
 
-/* 
+/*
    Note that the best fit b and c ST params for these 3D realisations have a redshift,
    and a DELTA_R_FACTOR (see ANAL_PARAMS.H) dependence, as (will be) shown in Mesinger+.
    For converged mass functions at z~5-10, set DELTA_R_FACTOR=1.1 and SHETH_b~0.15 SHETH_c~0.05 (work in progress)
@@ -71,7 +72,7 @@
 #define TINY (double) 1e-30
 #define FRACT_FLOAT_ERR (double) 1e-7 /* fractional floating point error */
 #define f_alpha (float) 0.4162 /* oscillator strength of Lya */
-#define Ly_alpha_HZ  (double ) 2.46606727e15  /* frequency of Lyalpha */ 
+#define Ly_alpha_HZ  (double ) 2.46606727e15  /* frequency of Lyalpha */
 #define C  (double) 29979245800.0  /*  speed of light  (cm/s)  */
 #define alphaA_10k (double) 4.18e-13 /* taken from osterbrock for T=10000 */
 #define alphaB_10k (double) 2.59e-13 /* taken from osterbrock for T=10000 */
@@ -89,11 +90,11 @@
 #define k_B (double) 1.380658e-16 /* erg / K */
 #define m_p (double) 1.6726231e-24 /* proton mass (g) */
 #define m_e (double) 9.10938188e-28 /* electron mass (g) */
-#define e_charge (double) 4.8033e-10 /* elemetary charge (esu=g^1/2 cm^3/2 s^-1*/ 
+#define e_charge (double) 4.8033e-10 /* elemetary charge (esu=g^1/2 cm^3/2 s^-1*/
 #define SQDEG_ALLSKY (double) ((360.0*360.0)/PI) /* Square degrees in all sky */
-#define G_AB_Jy (double) 3631.0 /* AB mag constant in Jy */ 
+#define G_AB_Jy (double) 3631.0 /* AB mag constant in Jy */
 #define NU_over_EV (double) (1.60217646e-12 / hplank)
-#define NUIONIZATION (double) (13.60*NU_over_EV)  /* ionization frequency of H */ 
+#define NUIONIZATION (double) (13.60*NU_over_EV)  /* ionization frequency of H */
 #define HeII_NUIONIZATION (double) (NUIONIZATION*4) /* ionization frequency of HeII */
 #define HeI_NUIONIZATION (double) (24.59*NU_over_EV) /* ionization frequency of HeI */
 #define Ho  (double) (hlittle*3.2407e-18) /* s^-1 at z=0 */
