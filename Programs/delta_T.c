@@ -6,8 +6,10 @@
 /*
   USAGE: delta_T [-p <NUM THREADS>] <redshift> <xH filename> [<Ts filename>]
 
-  generates the 21-cm temperature offset from the CMB field and power spectrum 
+  generates the 21-cm temperature offset from the CMB field and power spectrum
   the spin temperature filename is optional
+
+  unit: mK
 
   NOTE: the optional argument of thread number including the -p flag, MUST
   be the first two arguments.  If these are omitted, num_threads defaults
@@ -55,7 +57,7 @@ int main(int argc, char ** argv){
     fprintf(stderr, "delta_T: ERROR: problem initializing fftwf threads\nAborting\n.");
     return -1;
   }
-  fftwf_plan_with_nthreads(num_th);    
+  fftwf_plan_with_nthreads(num_th);
 
   // open LOG file
   REDSHIFT = atof(argv[1+arg_offset]);
@@ -66,7 +68,7 @@ int main(int argc, char ** argv){
   fprintf(LOG, "*********  REDSHIFT %06.2f  ***********\n", REDSHIFT);
   T_rad = T_cmb*(1+REDSHIFT);
   H = hubble(REDSHIFT);
-  const_factor = 27 * (OMb*hlittle*hlittle/0.023) * 
+  const_factor = 27 * (OMb*hlittle*hlittle/0.023) *
     sqrt( (0.15/OMm/hlittle/hlittle) * (1+REDSHIFT)/10.0 );
   system("mkdir ../Output_files/");
   system("mkdir ../Output_files/Deldel_T_power_spec");
@@ -98,7 +100,7 @@ int main(int argc, char ** argv){
     curr_Pop = -1;
   }
 
-  // initialize power spectrum 
+  // initialize power spectrum
   init_ps();
   growth_factor = dicke(REDSHIFT); // normalized to 1 at z=0
 
@@ -125,7 +127,7 @@ int main(int argc, char ** argv){
     fclose(LOG); fftwf_cleanup_threads(); return -1;
   }
   fclose(F);
- 
+
   // allocate memory for deltax box and read it in
   deltax = (float *) malloc(sizeof(float)*HII_TOT_FFT_NUM_PIXELS);
   if (!deltax){
@@ -278,7 +280,7 @@ int main(int argc, char ** argv){
   // now write out the delta_T box
   if (!T_USE_VELOCITIES){
     switch(FIND_BUBBLE_ALGORITHM){
-    case 2: 
+    case 2:
       if (USE_HALO_FIELD)
 	sprintf(filename, "../Boxes/delta_T_z%06.2f_nf%f_useTs%i_zetaX%.1e_alphaX%.1f_TvirminX%.1e_aveTb%06.2f_Pop%i_%i_%.0fMpc", REDSHIFT, nf, USE_TS_IN_21CM, curr_zetaX, curr_alphaX, curr_TvirX, ave, curr_Pop, HII_DIM, BOX_LEN);
       else
@@ -319,7 +321,7 @@ int main(int argc, char ** argv){
       else
 	k_y = n_y * DELTA_K;
 
-      for (n_z=0; n_z<=HII_MIDDLE; n_z++){ 
+      for (n_z=0; n_z<=HII_MIDDLE; n_z++){
 	k_z = n_z * DELTA_K;
 
 	// take partial deriavative along the line of sight
@@ -387,7 +389,7 @@ int main(int argc, char ** argv){
   fprintf(stderr, "%llu out of %llu voxels (fraction=%e) exceeded max allowed velocity gradient\n", nonlin_ct, HII_TOT_NUM_PIXELS, nonlin_ct/(double)HII_TOT_NUM_PIXELS);
   fprintf(LOG, "Min is %e\t dvdx is %e\n\n", min, mindvdx);
 
-  
+
   // now write out the delta_T box with velocity correction
   if(FIND_BUBBLE_ALGORITHM==2){
     if (USE_HALO_FIELD)
@@ -409,7 +411,7 @@ int main(int argc, char ** argv){
   fclose(F);
 }
 
-// deallocate what we aren't using anymore 
+// deallocate what we aren't using anymore
  free(xH); free(deltax); free(v); if (USE_TS_IN_21CM){ free(Ts);}
 
 
@@ -485,9 +487,9 @@ int main(int argc, char ** argv){
       else
 	k_y = n_y * DELTA_K;
 
-      for (n_z=0; n_z<=HII_MIDDLE; n_z++){ 
+      for (n_z=0; n_z<=HII_MIDDLE; n_z++){
 	k_z = n_z * DELTA_K;
-	
+
 	k_mag = sqrt(k_x*k_x + k_y*k_y + k_z*k_z);
 
 	// now go through the k bins and update
